@@ -44,3 +44,17 @@ def get_room_messages(room_id: str) -> list:
         return room_data.get('messages', [])
     else:
         return []
+    
+def create_room(room_title: str) -> str:
+    room_data = {
+        "room_title": room_title,
+        "messages": []
+    }
+    print(room_data)
+    
+    '''
+    return: [timestamp, docs object]
+    '''
+    room_ref = db.collection("rooms").add(room_data)
+    _, room_docs = room_ref
+    return room_docs.id if room_docs else ""
