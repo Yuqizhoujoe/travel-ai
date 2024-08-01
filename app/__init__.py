@@ -1,6 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
+# controllers
 from app.controllers.ai_controller import router as ai_router  # Adjust the import to your router module
+from app.controllers.room_controller import router as room_router 
 
 app = FastAPI()
 
@@ -20,3 +23,4 @@ app.add_middleware(
 )
 
 app.include_router(ai_router, prefix="/ai")
+app.include_router(room_router, prefix="/rooms")
