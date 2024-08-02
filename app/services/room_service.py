@@ -1,9 +1,8 @@
-# firebase
 from google.cloud import firestore
 from app.services.firebase import db
-
-# Models
 from app.models.message import Message
+from app.models.room import Room
+from app.exceptions import RoomNotFoundException
 
 def save_message_to_room(room_id: str, message: Message):
     room_ref = db.collection('rooms').document(room_id)
@@ -44,17 +43,28 @@ def get_room_messages(room_id: str) -> list:
         return room_data.get('messages', [])
     else:
         return []
-    
+
 def create_room(room_title: str) -> str:
     room_data = {
-        "room_title": room_title,
-        "messages": []
+        'room_title': room_title,
+        'messages': []
     }
-    print(room_data)
+    _, doc_ref = db.collection('rooms').add(room_data)
+    room_id = doc_ref.id
+    return room_id
+
+def get_room(room_id: str) -> Room:
+    room_ref = db.collection('rooms').document(room_id)
+    room = room_ref.get()
     
-    '''
-    return: [timestamp, docs object]
-    '''
-    room_ref = db.collection("rooms").add(room_data)
-    _, room_docs = room_ref
-    return room_docs.id if room_docs else ""
+    
+    if not room.exists:
+        raise RoomNotFoundException(room_id)
+
+    room_data = room.to_dict()
+    
+    return Room(
+        roomId=room_id,
+        roomTitle=room_data['room_title'],
+        messages=[Message(**msg) for msg in room_data.get('messages', [])]
+    )

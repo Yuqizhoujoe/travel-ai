@@ -13,3 +13,8 @@ class NewRoom(BaseModel):
     
 class NewRoomResponse(BaseModel):
     roomId: str
+    
+class GetRoomResponse(BaseModel):
+    roomId: str
+    roomTitle: str
+    messages: List[Message] = []
