@@ -1,7 +1,7 @@
 from google.cloud import firestore
 from app.services.firebase import db
 from app.models.message import Message
-from app.models.room import Room
+from app.models.room import Room, GetRoomResponse
 from app.exceptions import RoomNotFoundException
 
 def save_message_to_room(room_id: str, message: Message):
@@ -53,7 +53,23 @@ def create_room(room_title: str) -> str:
     room_id = doc_ref.id
     return room_id
 
-def get_room(room_id: str) -> Room:
+def get_rooms() -> list[GetRoomResponse]:
+    rooms_data = db.collection("rooms").stream()
+
+    rooms = []
+    for room in rooms_data:
+        room_data = room.to_dict()
+
+        room_id = room_data.get("room_id", room.id)
+        rooms.append(GetRoomResponse(
+            roomId=room_id,
+            roomTitle=room_data.get("room_title", ""),
+            messages=[Message(**msg) for msg in room_data.get("messages", [])]
+        ))
+
+    return rooms
+
+def get_room(room_id: str) -> GetRoomResponse:
     room_ref = db.collection('rooms').document(room_id)
     room = room_ref.get()
     
@@ -63,7 +79,7 @@ def get_room(room_id: str) -> Room:
 
     room_data = room.to_dict()
     
-    return Room(
+    return GetRoomResponse(
         roomId=room_id,
         roomTitle=room_data['room_title'],
         messages=[Message(**msg) for msg in room_data.get('messages', [])]

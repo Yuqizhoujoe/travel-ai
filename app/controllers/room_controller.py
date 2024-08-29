@@ -1,6 +1,8 @@
 from fastapi import APIRouter, HTTPException
+from typing import List
+
 from app.models.room import Room, NewRoom, NewRoomResponse, GetRoomResponse
-from app.services.room_service import create_room, get_room
+from app.services.room_service import create_room, get_room, get_rooms
 from app.exceptions import RoomNotFoundException
 
 router = APIRouter()
@@ -14,6 +16,14 @@ def create_room_controller(newRoom: NewRoom):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+@router.get("/", response_model=List[GetRoomResponse])
+def get_rooms_controller():
+    try:
+        rooms = get_rooms()
+        return rooms
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 @router.get("/{room_id}", response_model=GetRoomResponse)
 def get_room_controller(room_id: str):
     try:
@@ -23,3 +33,4 @@ def get_room_controller(room_id: str):
         raise e
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+

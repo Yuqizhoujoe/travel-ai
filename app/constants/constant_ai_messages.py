@@ -49,7 +49,7 @@ For your information, the sample editor JSON data is below:
         "withBackground": false,
         "stretched": false,
         "file": {
-          "url": "https://storage.googleapis.com/travel-go-f77a8.appspot.com/nextjs.png?Expires=1754108458&GoogleAccessId=firebase-adminsdk-5ax28%40travel-go-f77a8.iam.gserviceaccount.com&Signature=vK02QLw7%2F%2BYBIHkahhuii5hm20F2TGHDCrb8Fv2jI90cB0IkTvYH1%2BVgPFGBQzdfRQ%2B%2BibVVR%2BZZr0XjOBM0nucPEPxGIVvesblUkGs67Aoq7ca%2B6Qv91lhmu7jGTGZG5s4hzllPrv1muXRlHNh8OZfxKTRP0a2bP%2BgWF2IfjlqV%2FML9Lmfmq9kduVUtODdUkToyjN9AHJhPOqIUwX0K7Xj762LK3Xld2LvKW5h%2FZAxR%2Fp8hhb%2BNK6TVOgOxqHag3XfvBeqO68iEXExZ%2FSN%2FyP45V2gXJuU8PvCgRGAuIedo6wSUn7wMVCWMAv3tqqP%2FebqNHJj2Rxe6dFYUW%2F8NzQ%3D%3D"
+          "url": ""
         }
       }
     },
@@ -62,10 +62,10 @@ For your information, the sample editor JSON data is below:
       "id": "4pwfpzmZBo",
       "type": "linkTool",
       "data": {
-        "link": "https://github.com/codex-team/editor.js/blob/next/docs/tools.md",
+        "link": "",
         "meta": {
-          "title": "editor.js/docs/tools.md at next · codex-team/editor.js · GitHub",
-          "description": "A block-style editor with clean JSON output. Contribute to codex-team/editor.js development by creating an account on GitHub."
+          "title": "",
+          "description": ""
         }
       }
     },
